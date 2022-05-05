@@ -59,6 +59,8 @@ describe('Honeyfrens NFT Tests', () => {
         await honeyFrens.connect(whitelist1).presaleMintItems(2,hexProof1,{value: ethers.utils.parseEther('0.6')})
 
         // Test Public Mint
+        await expect( honeyFrensJames.mintItems(0,{value: ethers.utils.parseEther('1.5')})).to.be.revertedWith("MintZeroQuantity")
+
         await honeyFrensJames.mintItems(5,{value: ethers.utils.parseEther('1.5')})
         await honeyFrens.mintItems(5,{value: ethers.utils.parseEther('1.5')})
 
