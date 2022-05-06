@@ -28,6 +28,8 @@ I added some tests into test/sim.js where I was checking the gas costs
 
 Gas Consumption Tests:
 Whitelist Mint 2 
+
 New Version - 112376
+
 Original Honeyfrens - 155399
 
