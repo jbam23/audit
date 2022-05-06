@@ -1,6 +1,8 @@
 # Audit
 Notes:
+
 -Unused variable maxMintAmountPerTx in Honeyfrens.sol
+
 -Unused modifier withinMaximumSupply in Honeyfrens.sol
 
 Made a few changes that reduced the overall gas used for minting. For example the gas cost for minting 2 from the whitelist mint went from 155k gas consumed to 112k gas consumed which saves about 27.6855% in gas. Some changes I made in the HoneyfrensJames.sol include:
