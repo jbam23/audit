@@ -6,12 +6,12 @@ Notes:
 -Unused modifier withinMaximumSupply in Honeyfrens.sol
 
 Made a few changes that reduced the overall gas used for minting. For example the gas cost for minting 2 from the whitelist mint went from 155k gas consumed to 112k gas consumed which saves about 27.6855% in gas. Some changes I made in the HoneyfrensJames.sol include:
-    - removing all the Counters stuff tracking tokenID's in the mint functions are its not needed and require checks can just check totalSupply() for total amount minted so far.
+    1. Removing all the Counters stuff tracking tokenID's in the mint functions are its not needed and require checks can just check totalSupply() for total amount minted so far.
         - removed increaseTokenID function too, as not sure what you need it for - unless you are trying to skip around certain tokenID's for some reason?
-    - replaced _presaleMints mapping used in presaleMintItems with the getAux/setAux methods from the ERC721A contract (which saves about 15% gas - can see explanation here https://github.com/chiru-labs/ERC721A/issues/135)
-    - removed "require(msg.value >= _quantity * _price);" statement from _presaleMints because it is duplicate check as payment is already verified in hasCorrectAmount modifier
+    2. Replaced _presaleMints mapping used in presaleMintItems with the getAux/setAux methods from the ERC721A contract (which saves about 15% gas - can see explanation here https://github.com/chiru-labs/ERC721A/issues/135)
+    3. Removed "require(msg.value >= _quantity * _price);" statement from _presaleMints because it is duplicate check as payment is already verified in hasCorrectAmount modifier
 
-    Within mintItems function there are 2 duplicate requires that check if  _saleMints[msg.sender] + _quantity <= _maxMint, so both are not needed. Were one of the duplicate checks in mintItems intended to be a check with the unused variable maxMintAmountPerTx  to limit the max allowed mint per transaction maybe? But both _maxMint and _maxMintAmountPerTx are both set to 5 it seems redundant as checking _maxMint<5 will catch all cases that _maxMintAmountPerTx<5 will.
+Within mintItems function there are 2 duplicate requires that check if  _saleMints[msg.sender] + _quantity <= _maxMint, so both are not needed. Were one of the duplicate checks in mintItems intended to be a check with the unused variable maxMintAmountPerTx  to limit the max allowed mint per transaction maybe? But both _maxMint and _maxMintAmountPerTx are both set to 5 it seems redundant as checking _maxMint<5 will catch all cases that _maxMintAmountPerTx<5 will.
 
 Typically you only want to limit the amount an account can mint per transaction to something like 5, but let them submit any number of transactions up to that limit of 5. But if you want to limit each account to _maxMint amount for the public mint, which you can reset in your resetSaleMintsForAddrs method, then you should have it be something greater than _maxMintAmountPerTx. So in HoneyfrensJames.sol the 2 checks are:
 
