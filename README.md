@@ -1,4 +1,4 @@
-# Basic Sample Hardhat Project
+# Audit
 Notes:
 Unused variable maxMintAmountPerTx in Honeyfrens.sol
 Unused modifier withinMaximumSupply in Honeyfrens.sol
